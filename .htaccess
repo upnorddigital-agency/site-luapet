@@ -1,0 +1,58 @@
+# 1) Forçar HTTPS (Redirecionar todo tráfego HTTP para HTTPS 301)
+# 2) Padronizar www (Redirecionar www para não-www 301)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirecionar HTTP para HTTPS e www para não-www
+    # Se NÃO for https OU se for www...
+    RewriteCond %{HTTPS} off [OR]
+    RewriteCond %{HTTP_HOST} ^www\. [NC]
+    
+    # Extrai o domínio sem www (se houver)
+    RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [L,NE,R=301]
+</IfModule>
+
+# 3) Página 404 personalizada: ErrorDocument 404 /index.html
+ErrorDocument 404 /index.html
+
+# 4) Compressão gzip/deflate para performance
+<IfModule mod_deflate.c>
+    # Ativar mod_deflate para HTML, CSS, JS, SVG e JSON
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# 5) Cache de Navegador (MUITO IMPORTANTE - REGRAS DE CACHE-BUSTING)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Imagens e Mídias (jpg, png, webp, svg): 1 mês
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    
+    # CSS e JS: 1 semana
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+</IfModule>
+
+<IfModule mod_headers.c>
+    # CSS e JS: 1 semana
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "max-age=604800, public"
+    </FilesMatch>
+
+    # Imagens e Mídias: 1 mês
+    <FilesMatch "\.(jpg|jpeg|png|webp|svg)$">
+        Header set Cache-Control "max-age=2592000, public"
+    </FilesMatch>
+
+    # HTML: 0 segundos
+    # NUNCA gere cache para arquivos HTML, garanta que atualizações no código reflitam instantaneamente.
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+</IfModule>
