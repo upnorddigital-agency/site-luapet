@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Bloqueia indexação de rotas de assets se houver necessidade (geralmente não precisa, mas é bom citar)
+# Disallow: /assets/img/
+
+Sitemap: https://www.luapetcare.com.br/sitemap.xml
