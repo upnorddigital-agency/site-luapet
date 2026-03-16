@@ -17,47 +17,10 @@
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/apple-touch-icon.png">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Tailwind Configuration -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"TT Rounds Neue Trial"', 'Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#f0e6fa',
-                            100: '#e1cdf5',
-                            500: '#46008C', // Primary
-                            600: '#380070',
-                            700: '#2a0054',
-                            900: '#1c0038',
-                        },
-                        accent: {
-                            50: '#fffbea',
-                            100: '#fff7d5',
-                            500: '#FFD24D', // Secondary
-                            600: '#e6bd45',
-                        },
-                        base: {
-                            100: '#FFFFFF', // Highlight / Backgrounds
-                            900: '#000000', // Textos
-                            600: '#333333', // Lighter Textos
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <link rel="preload" as="image" href="./assets/img/hero-bg.webp">
 
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
@@ -182,8 +145,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- 1. Hero Section -->
         <section id="hero" class="relative bg-brand-900 overflow-hidden min-h-[90vh] flex items-center">
             <div class="absolute inset-0 z-0 bg-brand-900">
-                <img src="./assets/img/hero-bg.webp" alt="Cão com roupa cirúrgica feliz"
-                    class="w-full h-full object-cover opacity-80" loading="lazy">
+                <img src="./assets/img/hero-bg.webp" width="1920" height="1280" alt="Cão com roupa cirúrgica feliz"
+                    class="w-full h-full object-cover opacity-80" fetchpriority="high">
                 <div class="absolute inset-0 bg-gradient-to-r from-brand-900/80 via-brand-900/50 to-transparent">
                 </div>
             </div>
